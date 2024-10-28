@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+# таблица Бутчера
 dorman_prince = {}
 dorman_prince.setdefault('a', [[0, 0, 0,                                 0,    0,    0],
                                [1/5, 0, 0,                               0,    0,    0],
@@ -13,22 +14,26 @@ dorman_prince.setdefault('a', [[0, 0, 0,                                 0,    0
 
 dorman_prince.setdefault('b',  [35/384, 0, 500/1113, 125/192, -2187/6784, 11/84])
 
-l = l1 = l2 = 1
-m1 = 2   #
-m2 = 4   #
+# параметры модели
+l = l1 = l2 = 1.1         # длины стержней
+m1 = 3                  # масса первого грузика
+m2 = 4                  # масса второго грузика
 g = 9.81
 mu = m2/m1
-print(mu)
+s_a1 = (radians(75))    # угол наклона первого стержня
+s_a2 = (radians(75))    # угол наклона второго стержня
 
 
 def Derivative_func(state):
     a1, a2, p1, p2 = state
 
     A1 = (p1 * p2 * sin(a1-a2)) / (m1 * pow(l, 2) * (1 + mu * pow(sin(a1-a2), 2)))
-    A2 = (pow(p1, 2) * mu - 2 * p1 * p2 * mu * cos(a1 - a2) + pow(p2, 2) * (1 + mu)) * sin(2*(a1 - a2)) / (2 * m1 * pow(l, 2) * pow((1 + mu * pow(sin(a1 - a2), 2)), 2))
+    A2 = ((pow(p1, 2) * mu - 2 * p1 * p2 * mu * cos(a1 - a2) +
+           pow(p2, 2) * (1 + mu)) * sin(2*(a1 - a2)) /
+          (2 * m1 * pow(l, 2) * pow((1 + mu * pow(sin(a1 - a2), 2)), 2)))
 
-    d_a1 = (p1 - p2 * cos(a1 - a2)) / (m1 * pow(l,2) * (1 + mu * pow(sin(a1-a2), 2)))
-    d_a2 = ((p2 * (1 + mu)) - p1 * mu * cos(a1 - a2)) / m1 * pow(l,2) * (1 + mu * pow(sin(a1-a2), 2))
+    d_a1 = (p1 - p2 * cos(a1 - a2)) / (m1 * pow(l, 2) * (1 + mu * pow(sin(a1-a2), 2)))
+    d_a2 = ((p2 * (1 + mu)) - p1 * mu * cos(a1 - a2)) / m1 * pow(l, 2) * (1 + mu * pow(sin(a1-a2), 2))
     d_p1 = -m1 * (1 + mu) * g * l * sin(a1) - A1 + A2
     d_p2 = -m1 * mu * g * l * sin(a2) + A1 - A2
     return np.array([d_a1, d_a2, d_p1, d_p2])
@@ -76,9 +81,6 @@ def draw_grph(y, t):
 # Пример вызова функции
 # t = массив временных промежутков
 # y = двумерный массив с a1, a2, p1, p2
-s_a1 = (radians(75))
-s_a2 = (radians(75))
-
 def main():
     start = 0
     end = 50
