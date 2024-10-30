@@ -64,10 +64,30 @@ def DOPRI(state, h):
 def draw_grph(y, t):
     # y[:, 0] содержит все значения a1, а y[:, 1] - все значения a2
     plt.figure(figsize=(12, 8))
+
     colors = ['b', 'r']
     arr = ['a1', 'a2']
 
+    #Накидываем шум
+    noise_data = np.array(y)
+
+    for i in range(len(noise_data)):
+        noise_data[i] += np.random.normal(0.2, 0.2)
+
+    plt.subplot(2,1,1)
+    for i in range(2):  # Индексы 0 и 1 для a1 и a2
+        plt.plot(t, [degrees(j) for j in noise_data[:, i]], colors[i], label=arr[i])
+
+
+    plt.xlabel('Time')  # Подпись оси X
+    plt.ylabel('Values of a1, a2')  # Подпись оси Y
+    plt.legend()  # Легенда
+    plt.grid(True)  # Сетка
+    plt.title('График изменения a1 и a2 со временем с шумом')  # Заголовок графика
+
+
     # Построим графики для a1 и a2
+    plt.subplot(2, 1, 2)  # указываем 2 строки, 1 столбец, выбираем второе место
     for i in range(2):  # Индексы 0 и 1 для a1 и a2
         plt.plot(t, [degrees(j) for j in y[:, i]], colors[i], label=arr[i])
 
@@ -85,8 +105,8 @@ def draw_grph(y, t):
 # y = двумерный массив с a1, a2, p1, p2
 def main():
     start = 0
-    end = 40
-    h = 0.001
+    end = 10
+    h = 0.005
     all_steps = np.arange(start, end, h)
     steps = int((end - start)/h)
     all_points = np.zeros((steps, 4))

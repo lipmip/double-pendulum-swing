@@ -23,6 +23,8 @@ Python3, numpy, matplotlib
 <p align="center">
     <img src="extra/img_3.png">
 
+Также к конечным результатам был применен шум, реализованный как случайное число в нормальном распределении, с мат ожиданием 0.2 и дисперсией 0.2.
+
 ## Пример результата
 
 ### Первый:
@@ -31,11 +33,16 @@ Python3, numpy, matplotlib
 
 ![img_1.png](extra/2.png)
 
+![noise_1.png](extra/noise_1.png)
+
 ### Второй:
 
 ![img.png](extra/9.png)
 
 ![img.png](extra/10.png)
+
+![noise_2.png](extra/noise_2.png)
+
 
 ### Третий:
 
@@ -43,11 +50,17 @@ Python3, numpy, matplotlib
 
 ![img_3.png](extra/4.png)
 
+![noise_3.png](extra/noise_3.png)
+
+
 ### Четвертый:
 
 ![img.png](extra/5.png)
 
 ![img_1.png](extra/6.png)
+
+![noise_4.png](extra/noise_4.png)
+
 
 ### Пятый:
 
@@ -55,9 +68,15 @@ Python3, numpy, matplotlib
 
 ![img_1.png](extra/8.png)
 
+![noise_5.png](extra/noise_5.png)
+
+
 ### Шестой:
 
 ![img.png](extra/11.png)
 
 ![img.png](extra/12.png)
+
+![noise_6.png](extra/noise_6.png)
+
 
